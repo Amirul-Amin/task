@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Delicious Recipes</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: #4F46E5; /* Indigo-600 */
+      --color-secondary: #F97316; /* Orange-500 */
+      --color-bg: #F3F4F6; /* Gray-100 */
+      --color-text: #1E293B; /* Slate-800 */
+      --color-accent: #14B8A6; /* Teal-500 */
+    }
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+    }
+    header, footer {
+      background-color: var(--color-primary);
+      color: white;
+    }
+    input:focus {
+      outline-color: var(--color-secondary);
+      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.5);
+    }
+    .recipe-card {
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+      border: 1px solid #d1d5db; /* Tailwind gray-300 */
+      border-radius: 0.75rem; /* rounded-lg */
+      background-color: white;
+    }
+    .recipe-card:hover {
+      box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3); /* Indigo shadow */
+      transform: translateY(-5px);
+      border-color: var(--color-secondary);
+    }
+    .recipe-card img {
+      transition: transform 0.3s ease;
+      border-top-left-radius: 0.75rem;
+      border-top-right-radius: 0.75rem;
+    }
+    .recipe-card:hover img {
+      transform: scale(1.05);
+    }
+    h2 {
+      color: var(--color-primary);
+    }
+    h3 {
+      color: var(--color-secondary);
+    }
+    .btn-coral {
+  background-color: var(--color-btn);
+  transition: background-color 0.3s ease;
+  /* other styles if needed */
+}
+.btn-coral:hover {
+  background-color: #ea580c; /* darker coral */
+}
+  </style>
+</head>
+<body class="font-sans">
+
+  <!-- Header -->
+<header class="p-6 shadow sticky top-0 z-50">
+  <div class="container mx-auto max-w-7xl flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
+    <h1 class="text-3xl font-extrabold tracking-tight mb-2 sm:mb-0" style="color: white;">
+      Delicious Recipes
+    </h1>
+
+    <div class="flex items-center space-x-4 w-full sm:w-auto">
+      <!-- Search bar -->
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Search recipes..."
+        class="flex-grow sm:flex-grow-0 w-full sm:w-64 px-4 py-2 rounded-md border border-gray-300 text-gray-900"
+      />
+
+      <!-- Add New Recipe Button -->
+<button
+  id="addRecipeBtn"
+  class="btn-coral text-white font-semibold px-5 py-2 rounded-md shadow-md"
+  aria-label="Add New Recipe"
+>
+  + Add New Recipe
+</button>
+    </div>
+  </div>
+</header>
+
+  <!-- Main content -->
+  <main class="container mx-auto max-w-7xl p-6">
+    <h2 class="text-2xl font-semibold mb-6">Latest Recipes</h2>
+
+    <!-- Recipe grid -->
+    <div id="recipeGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+      <!-- Recipe card -->
+      <div class="recipe-card overflow-hidden" data-title="Creamy Garlic Pasta">
+        <img src="https://source.unsplash.com/400x300/?pasta" alt="Pasta" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold mb-2">Creamy Garlic Pasta</h3>
+          <p class="text-gray-700">A rich and creamy pasta with garlic and parmesan. Ready in 20 minutes!</p>
+        </div>
+      </div>
+
+      <!-- Recipe card -->
+      <div class="recipe-card overflow-hidden" data-title="Fresh Garden Salad">
+        <img src="https://source.unsplash.com/400x300/?salad" alt="Salad" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold mb-2">Fresh Garden Salad</h3>
+          <p class="text-gray-700">A healthy and vibrant salad with fresh veggies and vinaigrette.</p>
+        </div>
+      </div>
+
+      <!-- Recipe card -->
+      <div class="recipe-card overflow-hidden" data-title="Grilled Lemon Chicken">
+        <img src="https://source.unsplash.com/400x300/?chicken" alt="Chicken" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold mb-2">Grilled Lemon Chicken</h3>
+          <p class="text-gray-700">Juicy grilled chicken marinated in lemon and herbs. Perfect for summer!</p>
+        </div>
+      </div>
+
+      <!-- Duplicate card example -->
+      <div class="recipe-card overflow-hidden" data-title="Grilled Lemon Chicken">
+        <img src="https://source.unsplash.com/400x300/?chicken" alt="Chicken" class="w-full h-48 object-cover" />
+        <div class="p-4">
+          <h3 class="text-xl font-bold mb-2">Grilled Lemon Chicken</h3>
+          <p class="text-gray-700">Juicy grilled chicken marinated in lemon and herbs. Perfect for summer!</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center p-4 mt-10" style="background-color: var(--color-secondary); color: white;">
+    &copy; 2025 Delicious Recipes. All rights reserved.
+  </footer>
+
+  <!-- Search filter script -->
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const recipeGrid = document.getElementById('recipeGrid');
+    const recipeCards = recipeGrid.querySelectorAll('.recipe-card');
+
+    searchInput.addEventListener('input', () => {
+      const query = searchInput.value.toLowerCase();
+
+      recipeCards.forEach(card => {
+        const title = card.getAttribute('data-title').toLowerCase();
+        card.style.display = title.includes(query) ? '' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>
